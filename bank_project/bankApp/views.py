@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from django import views
 
-# Create your views here.
+class BaseView(views.View): #рендеринг главной страницы
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'index.html', {})
