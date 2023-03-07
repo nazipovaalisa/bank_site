@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Bank site</h1>
-</body>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Bank</title>
+      <link rel = "stylesheet" href="style.css">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/e6c5fdfa08.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+              <div class="header_inner">
+                <div class="header_left">
+                  <div class="footer_social">
+                    <a href="https://www.instagram.com/" target="_blank">
+                      <i class="fa fa-instagram"></i>
+                    </a>
+                    <a href="https://vk.com/enzhe_f" target="_blank">
+                      <i class="fa fa-vk"></i>
+                    </a>
+                    <a href="https://wa.me/79196967553" target="_blank">
+                      <i class="fa fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/Enzhe_F" target="_blank">
+                      <i class="fa fa-telegram"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="header_right">
+                  <a class="nav_link" routerLink="cart">О нас</a>
+                  <a class='nav_link' routerLink="cart">Контакты</a>
+                </div>
+
+                <div class="header_logo">Оценка кредитоспособности заёмщика</div>
+              </div>
+            </div>
+        </header>
+
+        <form class="decor">
+          <div class="form-inner">
+          <h3>Заполните данные</h3>
+          <br>
+          <label class="labels">ФИО:</label>
+          <input type="text" placeholder="Фамилия Имя Отчество">
+          <label class="labels">Ваш возраст:</label>
+          <input type="number" min="18" max="100" autocomplete="18" placeholder="Возраст">
+          <label class="labels">Ваш доход в месяц:</label>
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц">
+          <label class="labels">Сумма кредита:</label>
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц">
+          <label class="labels">Начальный взнос по кредиту:</label>
+          <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту">
+          <label class="labels">Срок кредита (в месяцах):</label>
+          <input type="number" min="6" max="60" autocomplete="6" placeholder="Срок кредита">
+          <label class="labels">Ваш опыт работы:</label>
+          <input type="number" min="0" placeholder="Количество лет">
+          <input type="submit" value="Рассчитать">
+          </div>
+          </form>
+
+          <form class="decor">
+            <div class="form-inner">
+              <h3>Здесь будут отображаться результаты</h3>
+            </div>
+          </form>
+
+          <br><br>
+          <div class="header_logo">Рекомендательная система</div>
+          <form class="decor">
+            <div class="form-inner">
+              <h3>Выберите услугу</h3>
+              <div>
+              <input type="checkbox" id="1">
+              <label for="1">Кредитная карта</label>
+              <input type="checkbox" id="2">
+              <label for="2">Дебетовая карта</label>
+              <input type="checkbox" id="3">
+              <label for="3">Автокредит</label>
+              <input type="checkbox" id="4">
+              <label for="4">Ипотека</label>
+            </div>
+
+              <input type="submit" value="Провести транзакцию">
+              </div>
+            </form>
+
+            <form class="decor">
+              <div class="form-inner">
+                <h3>Здесь будут отображаться результаты</h3>
+              </div>
+            </form>
+
+          <footer class="footer"></footer>
+    </body>
 </html>
