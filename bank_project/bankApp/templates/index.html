@@ -4,7 +4,7 @@
     <head>
       <meta charset="utf-8">
       <title>Bank</title>
-      <link type="text/css" href="{% static 'bankClient/css/style.css' %}" rel = "stylesheet">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
       <script src="https://kit.fontawesome.com/e6c5fdfa08.js" crossorigin="anonymous"></script>
     </head>
@@ -71,18 +71,12 @@
           <form class="decor">
             <div class="form-inner">
               <h3>Выберите услугу</h3>
-              <div>
-              <input type="checkbox" id="1">
-              <label for="1">Кредитная карта</label>
-              <input type="checkbox" id="2">
-              <label for="2">Дебетовая карта</label>
-              <input type="checkbox" id="3">
-              <label for="3">Автокредит</label>
-              <input type="checkbox" id="4">
-              <label for="4">Ипотека</label>
-            </div>
+                <p><input name="service" type="radio" value="creditCard" checked>Кредитная карта</p>
+                <p><input name="service" type="radio" value="debitCard">Дебитовая карта</p>
+                <p><input name="service" type="radio" value="ipoteka">Ипотека</p>
+                <p><input name="service" type="radio" value="autoCredit">Автокредит</p>
 
-              <input type="submit" value="Провести транзакцию">
+              <input type="submit" value="Выбрать">
               </div>
             </form>
 
