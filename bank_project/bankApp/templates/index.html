@@ -38,24 +38,25 @@
             </div>
         </header>
 
-        <form class="decor">
+        <form class="decor" action="{% url 'base' %}" method="POST">
+          {% csrf_token %}
           <div class="form-inner">
           <h3>Заполните данные</h3>
           <br>
           <label class="labels">ФИО:</label>
-          <input type="text" placeholder="Фамилия Имя Отчество">
+          <input type="text" placeholder="Фамилия Имя Отчество" name="fio">
           <label class="labels">Ваш возраст:</label>
-          <input type="number" placeholder="Возраст">
+          <input type="number" placeholder="Возраст" name="age">
           <label class="labels">Ваш доход в месяц:</label>
-          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц">
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц" name="income">
           <label class="labels">Сумма кредита:</label>
-          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц">
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Сумма кредита" name="sum_credit">
           <label class="labels">Начальный взнос по кредиту:</label>
-          <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту">
+          <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту" name="payment">
           <label class="labels">Срок кредита (в месяцах):</label>
           <input type="number" min="6" max="60" autocomplete="6" placeholder="Срок кредита">
           <label class="labels">Ваш опыт работы:</label>
-          <input type="number" min="0" placeholder="Количество лет">
+          <input type="number" min="0" placeholder="Количество лет" name="experience">
           <input type="submit" value="Рассчитать">
           </div>
           </form>
