@@ -17,6 +17,17 @@ class Ling_var:
         max_index = values.index(max_val)
         self.term_x = keys[max_index]
         self.membership = max_val
+        match self.term_x:
+            case 'VL':
+                self.term_x = 'Очень низкий'
+            case 'L':
+                self.term_x = 'Низкий'
+            case 'M':
+                self.term_x = 'Средний'
+            case 'H':
+                self.term_x = 'Высокий'
+            case 'VH':
+                self.term_x = 'Очень высокий'
 
 
 class Term:
@@ -181,8 +192,7 @@ def plot_credit(credit_ability, ability_val):
     values = [term.membership(ability_val) for term in credit_ability.terms.values()]
     labels = list(credit_ability.terms.keys())
     fig, ax = plt.subplots()
-    ax.pie(x=values, labels=labels, autopct='%1.1f%%', colors=['red', 'yellow', 'green'])
-    plt.show()
+    ax.pie(x=values, labels=labels, autopct='%1.1f%%', colors=['#ff98a3', '#ffff41', '#98ff98'])
     return fig
 
 
@@ -204,7 +214,7 @@ def fuzzy_result(income_value, payment_value, experience_value, age_value):
     payment.terms['H'] = Term(a=15, b=25, c=30)
     payment.terms['VH'] = Term(a=25, b=40)
 
-    experinence.terms['VL'] = Term(b=0, c=1)
+    experinence.terms['VL'] = Term(b=1, c=3)
     experinence.terms['L'] = Term(a=1, b=2, c=3)
     experinence.terms['M'] = Term(a=2, b=8, c=15)
     experinence.terms['H'] = Term(a=10, b=20, c=25)
@@ -226,8 +236,9 @@ def fuzzy_result(income_value, payment_value, experience_value, age_value):
         age: age_value
     }
 
-    for key, value in input_dict.items():
-        key.term_init(value)
+    for key, item in input_dict.items():
+        key.term_init(item)
+
 
     result_approve, credit_ability_value = fuzzy_output(income, payment, experinence, age,
                                           input_dict[income],
@@ -236,7 +247,7 @@ def fuzzy_result(income_value, payment_value, experience_value, age_value):
                                           input_dict[age],
                                           credit_ability)
 
-    return result_approve, credit_ability_value, credit_ability
+    return result_approve, credit_ability_value, credit_ability, income, payment, experinence, age
 
 
     

@@ -33,11 +33,45 @@
                   <a class='nav_link' routerLink="cart">Контакты</a>
                 </div>
 
-                <div class="header_logo">Оценка кредитоспособности заёмщика</div>
+                <div class="header_logo">Банковская система</div>
               </div>
             </div>
         </header>
 
+
+        <div class="header_logo">Оценка кредитоспособности заёмщика</div>
+        {% if plot %}
+          <form class="decor">
+            <div class="form-inner" align="center">
+              <h3>Результаты оценки для клиента {{ fio }}</h3>
+                <ul>
+                  <li><span style="font-weight: bold">Доход: </span>
+                    <span>{{ income_input}} - {{ income.term_x}}</span>
+                  </li>
+                 <li>
+                   <span style="font-weight: bold">Первоначальный взнос: </span>
+                     <span>{{ payment_input}}% - {{ payment.term_x}}</span>
+                 </li>
+                 <li>
+                   <span style="font-weight: bold">Опыт работы: </span>
+                   <span>{{ experience_input}} - {{ experience.term_x}}</span>
+                 </li>
+                 <li>
+                   <span style="font-weight: bold">Возраст: </span>
+                   <span>{{ age_input}} - {{ age.term_x}}</span>
+                 </li>
+                </ul>
+               <img src="data:image/png;base64,{{ plot }}" alt="">
+              <h3>Кредит
+                {% if approve == 1 %}
+                <span style="color: #1bd406">одобрен</span>
+                {% else %}
+                <span style="color: red">не одобрен</span>
+                {% endif %}</h3>
+              <a href="{% url 'base' %}"><button type="button" class="button">Сбросить</button></a>
+            </div>
+          </form>
+        {% else %}
         <form class="decor" action="{% url 'base' %}" method="POST">
           {% csrf_token %}
           <div class="form-inner">
@@ -46,26 +80,24 @@
           <label class="labels">ФИО:</label>
           <input type="text" placeholder="Фамилия Имя Отчество" name="fio">
           <label class="labels">Ваш возраст:</label>
-          <input type="number" placeholder="Возраст" name="age">
+          <input type="number" placeholder="Возраст" name="age" required="required">
           <label class="labels">Ваш доход в месяц:</label>
-          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц" name="income">
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц" name="income"
+                 required="required">
           <label class="labels">Сумма кредита:</label>
-          <input type="number" min="10000" max="5000000" step="1000" placeholder="Сумма кредита" name="sum_credit">
+          <input type="number" min="10000" max="5000000" step="1000" placeholder="Сумма кредита" name="sum_credit"
+                 required="required">
           <label class="labels">Начальный взнос по кредиту:</label>
-          <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту" name="payment">
+          <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту"
+                 name="payment" required="required">
           <label class="labels">Срок кредита (в месяцах):</label>
           <input type="number" min="6" max="60" autocomplete="6" placeholder="Срок кредита">
           <label class="labels">Ваш опыт работы:</label>
-          <input type="number" min="0" placeholder="Количество лет" name="experience">
+          <input type="number" min="0" placeholder="Количество лет" name="experience" required="required">
           <input type="submit" value="Рассчитать">
           </div>
           </form>
-
-          <form class="decor">
-            <div class="form-inner">
-              <h3>Здесь будут отображаться результаты</h3>
-            </div>
-          </form>
+        {% endif %}
 
           <br><br>
           <div class="header_logo">Рекомендательная система</div>

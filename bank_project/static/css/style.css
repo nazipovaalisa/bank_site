@@ -118,16 +118,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
     cursor: pointer;
  }
-
- .button {
-    margin-top: 30px;
-    background: #73b0f6;
-    border-bottom: 4px solid #568ad8;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
- }
-
  .form-inner textarea {
     resize: none;
  }
