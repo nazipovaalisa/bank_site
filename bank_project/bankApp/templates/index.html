@@ -4,7 +4,7 @@
     <head>
       <meta charset="utf-8">
       <title>Bank</title>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
       <script src="https://kit.fontawesome.com/e6c5fdfa08.js" crossorigin="anonymous"></script>
     </head>
@@ -29,8 +29,7 @@
                   </div>
                 </div>
                 <div class="header_right">
-                  <a class="nav_link" routerLink="cart">О нас</a>
-                  <a class='nav_link' routerLink="cart">Контакты</a>
+                  <a class="nav_link" routerLink="cart" href="http://127.0.0.1:8000/admin">Администрирование</a>
                 </div>
 
                 <div class="header_logo">Банковская система</div>
@@ -41,10 +40,10 @@
 
         <div class="header_logo">Оценка кредитоспособности заёмщика</div>
         {% if plot %}
-          <form class="decor">
+          <form class="decor" action="{% url 'base' %}">
             <div class="form-inner" align="center">
               <h3>Результаты оценки для клиента {{ fio }}</h3>
-                <ul>
+                <ul style="list-style-type: none">
                   <li><span style="font-weight: bold">Доход: </span>
                     <span>{{ income_input}} - {{ income.term_x}}</span>
                   </li>
@@ -68,7 +67,7 @@
                 {% else %}
                 <span style="color: red">не одобрен</span>
                 {% endif %}</h3>
-              <a href="{% url 'base' %}"><button type="button" class="button">Сбросить</button></a>
+              <input type="submit" value="Сбросить">
             </div>
           </form>
         {% else %}
@@ -80,18 +79,16 @@
           <label class="labels">ФИО:</label>
           <input type="text" placeholder="Фамилия Имя Отчество" name="fio">
           <label class="labels">Ваш возраст:</label>
-          <input type="number" placeholder="Возраст" name="age" required="required">
+          <input type="number" min="18" max="99" placeholder="Возраст" name="age" required="required">
           <label class="labels">Ваш доход в месяц:</label>
           <input type="number" min="10000" max="5000000" step="1000" placeholder="Доход в месяц" name="income"
                  required="required">
           <label class="labels">Сумма кредита:</label>
-          <input type="number" min="10000" max="5000000" step="1000" placeholder="Сумма кредита" name="sum_credit"
+          <input type="number" min="10000" max="10000000" step="10000" placeholder="Сумма кредита" name="sum_credit"
                  required="required">
           <label class="labels">Начальный взнос по кредиту:</label>
           <input type="number" min="10000" max="500000" step="10000" placeholder="Начальный взнос по кредиту"
                  name="payment" required="required">
-          <label class="labels">Срок кредита (в месяцах):</label>
-          <input type="number" min="6" max="60" autocomplete="6" placeholder="Срок кредита">
           <label class="labels">Ваш опыт работы:</label>
           <input type="number" min="0" placeholder="Количество лет" name="experience" required="required">
           <input type="submit" value="Рассчитать">
@@ -104,11 +101,14 @@
           <form class="decor">
             <div class="form-inner">
               <h3>Выберите услугу</h3>
-                <p><input name="service" type="radio" value="creditCard" checked>Кредитная карта</p>
-                <p><input name="service" type="radio" value="debitCard">Дебитовая карта</p>
-                <p><input name="service" type="radio" value="ipoteka">Ипотека</p>
-                <p><input name="service" type="radio" value="autoCredit">Автокредит</p>
-
+              <br>
+                <select class="select" name="service">
+                  <option disabled>Выберите услугу</option>
+                  <option value="creditCard">Кредитная карта</option>
+                  <option value="debitCard">Дебетовая карта</option>
+                  <option value="ipoteka">Ипотека</option>
+                  <option value="autoCredit">Автокредит</option>
+                </select>
               <input type="submit" value="Выбрать">
               </div>
             </form>
