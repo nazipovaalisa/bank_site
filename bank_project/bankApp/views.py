@@ -6,12 +6,21 @@ from django import views
 from django.shortcuts import render, HttpResponseRedirect
 
 from .fuzzy_logic import fuzzy_result, plot_credit
+from .models import Service, Transaction
+from .associated_rules import recommendation_items
 
 
-class BaseView(views.View): #рендеринг главной страницы
-
+class BaseView(views.View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'index.html', {})
+        services = Service.objects.all()
+        context = {
+            'services': services,
+            'service_client': ''
+        }
+        return render(request, 'index.html', context=context)
+
+
+class FuzzyView(views.View):
 
     def post(self, request, *args, **kwargs):
         try:
@@ -48,8 +57,29 @@ class BaseView(views.View): #рендеринг главной страницы
             'experience_input': experience_input,
             'age_input': age_input,
             'payment_input': int(payment_input),
-            'fio': fio
+            'fio': fio,
+            'services': Service.objects.all()
         }
 
         return render(request, 'index.html', context)
+
+
+class AssociatedView(views.View):
+
+    def post(self, request, *args, **kwargs):
+        service_client = request.POST['service']
+        transactions_all = Transaction.objects.all()
+        transactions_list = []
+        for transaction in transactions_all:
+            transactions_list.append(transaction.services_in_transaction())
+        result_items = recommendation_items(transactions_list, service_client)
+
+        context = {
+            # 'n': len(result_items.keys()),
+            'recom_items': result_items,
+            'services': Service.objects.all(),
+            'service_client': service_client
+        }
+        return render(request, 'index.html', context=context)
+
 

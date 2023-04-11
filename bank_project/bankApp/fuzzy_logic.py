@@ -54,7 +54,6 @@ class Term:
                 return trapezoid(x, self.a, self.b, self.c, self.d)
 
 
-# Todo написать функции для концов интервало
 def trapezoid(x, a, b, c, d):
     if a <= x <= b:
         return 1 - (b - x) / (b - a)
@@ -94,47 +93,6 @@ def right(x, a, b):
 
 
 def fuzzy_output(income, payment, experience, age, i, p, e, a, credit_ability):
-    r = [[0.15, income.terms['L'].membership(i), payment.terms['VL'].membership(p)],
-             [0.2, income.terms['L'].membership(i), payment.terms['L'].membership(p)],
-             [0.25, income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['VL'].membership(e)],
-             [0.3, income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['L'].membership(e)],
-             [0.35, income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['M'].membership(e)],
-             [0.4, income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['H'].membership(e)],
-             [0.6, income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['VH'].membership(e)],
-             [0.4, income.terms['L'].membership(i), payment.terms['H'].membership(p), age.terms['L'].membership(a)],
-             [0.5, income.terms['L'].membership(i), payment.terms['H'].membership(p), age.terms['M'].membership(a)],
-             [0.6, income.terms['L'].membership(i), payment.terms['H'].membership(p), age.terms['H'].membership(a)],
-             [0.4, income.terms['L'].membership(i), payment.terms['VH'].membership(p), experience.terms['VL'].membership(e)],
-             [0.45, income.terms['L'].membership(i), payment.terms['VH'].membership(p), experience.terms['L'].membership(e)],
-             [0.5, income.terms['L'].membership(i), payment.terms['VH'].membership(p), experience.terms['M'].membership(e)],
-             [0.7, income.terms['L'].membership(i), payment.terms['VH'].membership(p), experience.terms['H'].membership(e)],
-             [0.75, income.terms['L'].membership(i), payment.terms['VH'].membership(p), experience.terms['VH'].membership(e)],
-             [0.8, income.terms['VH'].membership(i)],
-             [0.8, income.terms['H'].membership(i), age.terms['M'].membership(a)],
-             [0.8, income.terms['H'].membership(i), age.terms['H'].membership(a)],
-             [0.5, income.terms['H'].membership(i), age.terms['L'].membership(a), payment.terms['VL'].membership(p)],
-             [0.53, income.terms['H'].membership(i), age.terms['L'].membership(a), payment.terms['L'].membership(p)],
-             [0.55, income.terms['H'].membership(i), age.terms['L'].membership(a), payment.terms['M'].membership(p)],
-             [0.6, income.terms['H'].membership(i), age.terms['L'].membership(a), payment.terms['H'].membership(p)],
-             [0.65, income.terms['H'].membership(i), age.terms['L'].membership(a), payment.terms['VH'].membership(p)],
-             [0.7, income.terms['M'].membership(i), payment.terms['H'].membership(p)],
-             [0.75, income.terms['M'].membership(i), payment.terms['VH'].membership(p)],
-             [0.55, income.terms['M'].membership(i), payment.terms['VL'].membership(p)],
-             [0.5, income.terms['M'].membership(i), payment.terms['M'].membership(p), age.terms['L'].membership(a)],
-             [0.7, income.terms['M'].membership(i), payment.terms['M'].membership(p), age.terms['M'].membership(a)],
-             [0.75, income.terms['M'].membership(i), payment.terms['M'].membership(p), age.terms['H'].membership(a)],
-             [0.4, income.terms['M'].membership(i), payment.terms['L'].membership(p), experience.terms['VL'].membership(e)],
-             [0.45, income.terms['M'].membership(i), payment.terms['L'].membership(p),
-                     experience.terms['L'].membership(e)],
-             [0.55, income.terms['M'].membership(i), payment.terms['L'].membership(p),
-                     experience.terms['M'].membership(e)],
-             [0.58, income.terms['M'].membership(i), payment.terms['L'].membership(p),
-                     experience.terms['H'].membership(e)],
-             [0.55, income.terms['M'].membership(i), payment.terms['L'].membership(p),
-                     experience.terms['VH'].membership(e), age.terms['M'].membership(a)],
-             [0.75, income.terms['M'].membership(i), payment.terms['L'].membership(p),
-                     experience.terms['VH'].membership(e), age.terms['H'].membership(a)],
-             ]
     rules = [[0.15, min(income.terms['L'].membership(i), payment.terms['VL'].membership(p))],
              [0.2, min(income.terms['L'].membership(i), payment.terms['L'].membership(p))],
              [0.25, min(income.terms['L'].membership(i), payment.terms['M'].membership(p), experience.terms['VL'].membership(e))],
@@ -202,7 +160,6 @@ def fuzzy_result(income_value, payment_value, experience_value, age_value):
     experinence = Ling_var('Опыт работы')
     age = Ling_var('Возраст')
 
-    # Todo определить нечеткие числа
     income.terms['L'] = Term(b=16000, c=30000)
     income.terms['M'] = Term(a=18000, b=30000, c=55000)
     income.terms['H'] = Term(a=40000, b=70000, c=100000)
@@ -236,16 +193,15 @@ def fuzzy_result(income_value, payment_value, experience_value, age_value):
         age: age_value
     }
 
-    for key, item in input_dict.items():
-        key.term_init(item)
-
+    for key, value in input_dict.items():
+        key.term_init(value)
 
     result_approve, credit_ability_value = fuzzy_output(income, payment, experinence, age,
-                                          input_dict[income],
-                                          input_dict[payment],
-                                          input_dict[experinence],
-                                          input_dict[age],
-                                          credit_ability)
+                                                        input_dict[income],
+                                                        input_dict[payment],
+                                                        input_dict[experinence],
+                                                        input_dict[age],
+                                                        credit_ability)
 
     return result_approve, credit_ability_value, credit_ability, income, payment, experinence, age
 

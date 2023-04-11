@@ -14,6 +14,7 @@ class Service(models.Model):
         verbose_name_plural = 'Услуги'
 
 
+#транзакции
 class Transaction(models.Model):
 
     date_transaction = models.DateField(verbose_name='Дата транзакции')

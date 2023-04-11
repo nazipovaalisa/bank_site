@@ -6,6 +6,7 @@
       <title>Bank</title>
       <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+<!--      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
       <script src="https://kit.fontawesome.com/e6c5fdfa08.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -29,7 +30,7 @@
                   </div>
                 </div>
                 <div class="header_right">
-                  <a class="nav_link" routerLink="cart" href="http://127.0.0.1:8000/admin">Администрирование</a>
+                  <a class="nav_link" href="http://127.0.0.1:8000/admin" style="font-weight: 400;">Администрирование</a>
                 </div>
 
                 <div class="header_logo">Банковская система</div>
@@ -60,6 +61,7 @@
                    <span>{{ age_input}} - {{ age.term_x}}</span>
                  </li>
                 </ul>
+                <h3>Кредитоспособность</h3>
                <img src="data:image/png;base64,{{ plot }}" alt="">
               <h3>Кредит
                 {% if approve == 1 %}
@@ -71,7 +73,7 @@
             </div>
           </form>
         {% else %}
-        <form class="decor" action="{% url 'base' %}" method="POST">
+        <form class="decor" action="{% url 'fuzzy' %}" method="POST">
           {% csrf_token %}
           <div class="form-inner">
           <h3>Заполните данные</h3>
@@ -98,27 +100,61 @@
 
           <br><br>
           <div class="header_logo">Рекомендательная система</div>
-          <form class="decor">
+          <form class="decor" method="POST" action="{% url 'associated' %}" >
+            {% csrf_token %}
             <div class="form-inner">
               <h3>Выберите услугу</h3>
               <br>
+<!--              {% for service in services %}-->
+<!--              <div class="form-check">-->
+<!--                <input class="form-check-input" type="checkbox" value="{{service.name}}" id="flexCheckDefault">-->
+<!--                <label class="form-check-label" for="flexCheckDefault">-->
+<!--                  {{service.name}}-->
+<!--                </label>-->
+<!--              </div>-->
+<!--              {% endfor %}-->
                 <select class="select" name="service">
                   <option disabled>Выберите услугу</option>
-                  <option value="creditCard">Кредитная карта</option>
-                  <option value="debitCard">Дебетовая карта</option>
-                  <option value="ipoteka">Ипотека</option>
-                  <option value="autoCredit">Автокредит</option>
+                  {% for service in services %}
+                  <option value="{{service.name }}">{{service.name}}</option>
+                  {% endfor %}
                 </select>
               <input type="submit" value="Выбрать">
               </div>
             </form>
 
+        {% if service_client != '' %}
             <form class="decor">
               <div class="form-inner">
-                <h3>Здесь будут отображаться результаты</h3>
+                  {% if recom_items %}
+                <h3>Рекомендации к услуге "{{service_client}}"</h3>
+                  {% for i in recom_items %}
+                    <ul>
+                        {% for item in i.items %}
+                        <li>{{item }}</li>
+                        {% endfor %}
+                    </ul>
+                  <table width="75%" cellspacing="0" border="1">
+                      <tr align="center">
+                          <th>Поддержка</th>
+                          <th>Достоверность</th>
+                          <th>Лифт</th>
+                      </tr>
+                      <tr align="center">
+                          <td>{{i.support}} %</td>
+                          <td>{{i.confidence}} %</td>
+                          <td>{{i.lift}}</td>
+                      </tr>
+                  </table>
+                  <br>
+                  <hr align="left" width="100%" />
+                  {% endfor %}
+                  {% else %}
+                  <h3>Рекомендаций к услуге "{{service_client}}" нет</h3>
+                  {% endif %}
               </div>
             </form>
-
+        {% endif %}
           <footer class="footer"></footer>
     </body>
 </html>

@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 .header_right {
     position: absolute;
     margin-left: 78%;
-    font-weight: 100;
+    font-weight: 400;
 }
 
 .nav {
